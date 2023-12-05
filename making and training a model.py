@@ -10,6 +10,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report,accuracy_score,confusion_matrix
 import pickle
 import threading
+
 def model_create(val1):
   with open("categories_"+str(val1)+".txt", "r") as f:
     Categories= f.read()
@@ -18,8 +19,6 @@ def model_create(val1):
 
   flat_data_arr=[]
   target_arr=[]
-#please use datadir='/content' if the files are upload on to google collab
-#else mount the drive and give path of the parent-folder containing all category images folders.
 
   datadir='E:/dataset/yellowplate_normal/'+str(val1)
   for i in Categories:
@@ -52,9 +51,7 @@ def model_create(val1):
 
   pickle.dump(model,open('WE_HATE_ANPR_'+str(val1)+'.p','wb'))
   print("Pickle is dumped successfully")
-  with open("flat_data_arr_"+str(val1)+".txt", "w") as f:
-    f.write(str(flat_data_arr))
-    f.close
+  pickle.dump(flat_data_arr, open("flat_data_arr_"+str(val1)+".p", "wb"))
   
   with open("target_arr_"+str(val1)+".txt", "w") as f:
     f.write(str(target_arr))
